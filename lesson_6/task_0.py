@@ -13,13 +13,7 @@
 (2+((5-3)*(16-14)))/3 => 2
 (256 - 194 => некорректная запись скобок'''
 
-
-symbols = ['+', '-', '*', '/', '(', ')']
-
-expression = input('Введите математическое выражения для расчёта: ')
-
-sub_expression = ''
-
+# METHODS:
 def brackets_checking(input_text):
     result_list = []
     count1 = 0
@@ -32,14 +26,77 @@ def brackets_checking(input_text):
     if count2 != count1:
         print(f'Некорректная запись скобок в выражении -> {input_text}')
         result_list.append(False)
-    else: result_list.append(True).append(count1)
+    else: 
+        result_list.append(True)
+        result_list.append(count1)
     return result_list
 
+def get_numbers(expression):
+    numbers = []
+    temp = ''
+    expression += '='
+    for char in expression:
+        if char.isdigit():
+            temp += char 
+        else:
+            numbers.append(temp)
+            temp = ''
+    return list(map(lambda x: int(x), list(filter(lambda x: x.isdigit(), numbers))))
+
+def get_operators(expression):
+    return list(filter(lambda x: x in '-+*/', expression))
+
+def check_alpha(expression):
+    return not any(filter(lambda x: x.isalpha(), expression))
+
+def check_expressions(numbers: list, operators: list):
+    return True if len(numbers) > len(operators) else False 
+
+def main_function(numbers: list, operators: list):
+    while (operators.__contains__('*') or operators.__contains__('/')):
+        for i in range(len(operators)):
+            if (operators[i] == '*' or operators[i] == '/'):    
+                firs_number = numbers.pop(i)
+                second_number = numbers.pop(i)
+                operator = operators.pop(i)
+                if(operator == '*'):
+                    numbers.insert(i, firs_number * second_number)
+                elif(operator == '/'):
+                    numbers.insert(i, firs_number / second_number)
+
+    while(len(numbers) > 1):
+        count = 0
+        firs_number = numbers.pop(count)
+        second_number = numbers.pop(count)
+        operator = operators.pop(count)
+        if(operator == '+'):
+            numbers.insert(count, firs_number + second_number)
+        elif(operator == '-'):
+            numbers.insert(count, firs_number - second_number)
+        count += 1
 
 
-if expression.__contains__('('):
-    check_brackets = brackets_checking(expression)
-    if (check_brackets[0]):
-        input_brackets_count = check_brackets[1]
-        split_string = expression.split('(')[input_brackets_count - 1].split(')')[0]
+#     ACTION :)
+numbers = []
+operators = []
+expression = '25+4*3-22*8'
+print(eval(expression))
+print()
+
+
+if check_alpha(expression):
+    numbers = get_numbers(expression)
+    operators = get_operators(expression)
+    if check_expressions(numbers, operators) == False:
+        print("Выражение неполное!")
+    else: 
+        check_brackets = brackets_checking(expression)
+        if (check_brackets[0] and check_brackets[1] > 0):
+            input_brackets_count = check_brackets[1]
+            split_string = expression.split('(')[input_brackets_count - 1].split(')')[0]
+        elif (check_brackets[0]):
+            main_function(numbers, operators)
+            print(numbers[0])
+else: print("вы ввели буквы!")
+
 
