@@ -1,4 +1,4 @@
-import ui
+import controller
 
 print("Добро пожаловать в калькулятор!")
-ui.get_command()
+controller.button_menu()
