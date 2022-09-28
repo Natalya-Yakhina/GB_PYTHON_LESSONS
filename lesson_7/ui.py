@@ -15,6 +15,5 @@ def view_result(result):
     Выводит на экран строку из аргумента
     '''
     print(result)
-    return result
 
 
