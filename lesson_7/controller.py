@@ -9,23 +9,41 @@ def button_menu():
     while True:
         x = 0
         y = 0
+        data = ''
         command = input("Введите номер команды (1 сложить, 2 вычесть, 3 умножить, 4 поделить, 5 посмотреть журнал вычислений, 6 выйти) - ")
+
         if command == "6":
-            print("До свидания!")
+            ui.view_result("До свидания!")
             exit()
-        elif command in "1234":
-            x = ui.get_input_number("первое") 
-            y = ui.get_input_number('второе') 
+
         if command == "1": 
-            logger.write_log(ui.view_result(str(f'{x} + {y} = {calc.sum(x, y)}')))
+            x = ui.get_input_number("первое") 
+            y = ui.get_input_number('второе')
+            data = str(f'{x} + {y} = {calc.sum(x, y)}')
+            ui.view_result(data) 
+            logger.write_log(data)
         elif command == "2": 
-            logger.write_log(ui.view_result(str(f'{x} - {y} = {calc.sub(x, y)}')))
+            x = ui.get_input_number("первое") 
+            y = ui.get_input_number('второе')
+            data = str(f'{x} - {y} = {calc.sub(x, y)}')
+            ui.view_result(data) 
+            logger.write_log(data)
         elif command == "3": 
-            logger.write_log(ui.view_result(str(f'{x} * {y} = {calc.mult(x, y)}')))
+            x = ui.get_input_number("первое") 
+            y = ui.get_input_number('второе')
+            data = str(f'{x} * {y} = {calc.mult(x, y)}')
+            ui.view_result(data) 
+            logger.write_log(data)
         elif command == "4": 
-            logger.write_log(ui.view_result(str(f'{x} / {y} = {calc.div(x, y)}')))
+            x = ui.get_input_number("первое") 
+            y = ui.get_input_number('второе')
+            data = str(f'{x} / {y} = {calc.div(x, y)}')
+            ui.view_result(data) 
+            logger.write_log(data)
         elif command == "5": 
-            print(logger.read_logs())
+            ui.view_result(logger.read_logs())
         else:
-            print('Вы ввели неверную команду!')
+            ui.view_result('Вы ввели неверную команду!')
+
+            
         

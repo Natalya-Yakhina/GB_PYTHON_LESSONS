@@ -1,6 +1,4 @@
 import check
-import controller
-import logger
 
 def get_input_number(serial_number = ''):
     """ 
