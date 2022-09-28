@@ -16,4 +16,4 @@ def check_number(string):
         except ValueError:
             print (f'Введенное значение -> {string} не является рациональным или комплексным числом!')
             return False
-
+            
